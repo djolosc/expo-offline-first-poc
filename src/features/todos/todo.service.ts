@@ -1,5 +1,6 @@
 import { uuid } from "../../utils/uuid";
 import { insertTodo } from "./todo.repository";
+import { syncTodos } from "./todo.sync";
 
 export const createTodo = (title: string) => {
   const todo = {
@@ -10,4 +11,5 @@ export const createTodo = (title: string) => {
     updatedAt: Date.now(),
   };
   insertTodo(todo);
+  syncTodos();
 };

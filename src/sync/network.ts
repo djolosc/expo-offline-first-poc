@@ -1,12 +1,14 @@
 import NetInfo from "@react-native-community/netinfo";
 import { syncTodos } from "../features/todos/todo.sync";
-
-NetInfo.fetch().then((state) => console.log("Connected?", state.isConnected));
+import { setSyncState } from "./syncState";
 
 export const startNetworkListener = () => {
   NetInfo.addEventListener((state) => {
-    if (state.isConnected) {
-      syncTodos();
+    if (!state.isConnected) {
+      setSyncState({ status: "offline" });
+      return;
     }
+    setSyncState({ status: "syncing" });
+    syncTodos();
   });
 };
