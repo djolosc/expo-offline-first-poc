@@ -7,6 +7,10 @@ const Home = () => {
   const addTodo = useAddTodo();
   const sync = useSyncState();
 
+  const lastSyncText = sync.lastSync
+    ? new Date(sync.lastSync).toLocaleTimeString()
+    : "never";
+
   return (
     <View style={{ flex: 1, padding: 40 }}>
       <Text>
@@ -14,6 +18,8 @@ const Home = () => {
         {sync.status === "syncing" && `🟡 Syncing ${sync.pending}…`}
         {sync.status === "idle" && "🟢 All synced ✓"}
       </Text>
+
+      <Text>Last sync: {lastSyncText}</Text>
       <Button title="Add Todo" onPress={() => addTodo("Offline task")} />
 
       <FlatList
