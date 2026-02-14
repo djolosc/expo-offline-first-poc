@@ -13,8 +13,8 @@ export const insertTodo = (todo: Todo) => {
   ]);
 };
 
-export const getTodos = () => {
-  return db.getAllSync(`SELECT * FROM todos ORDER BY updatedAt DESC`);
+export const getTodos = (): Todo[] => {
+  return db.getAllSync(`SELECT * FROM todos ORDER BY updatedAt DESC`) as Todo[];
 };
 
 export const getPendingTodos = (): Todo[] => {
@@ -36,4 +36,14 @@ export const incrementRetry = (id: string, error: string) => {
     `UPDATE todos SET retryCount = retryCount + 1, lastError = ? WHERE id = ?`,
     [error, id],
   );
+};
+
+export const getFailedTodos = async () => {
+  return db.getAllAsync(`
+    SELECT *
+    FROM todos
+    WHERE synced = 0
+    AND retryCount > 0
+    ORDER BY retryCount DESC
+  `) as Promise<Todo[]>;
 };

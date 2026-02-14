@@ -1,3 +1,4 @@
+import FailedTodos from "@/src/features/todos/FailedTodos";
 import { Button, FlatList, Text, View } from "react-native";
 import { useAddTodo, useTodos } from "../src/features/todos/todo.hooks";
 import { useSyncState } from "../src/sync/useSyncState";
@@ -13,21 +14,17 @@ const Home = () => {
 
   return (
     <View style={{ flex: 1, padding: 40 }}>
-      <Text>
-        {sync.status === "offline" && "🔴 Offline"}
-        {sync.status === "syncing" && `🟡 Syncing ${sync.pending}…`}
-        {sync.status === "idle" && "🟢 All synced ✓"}
-      </Text>
+      <FailedTodos />
 
       <Text>Last sync: {lastSyncText}</Text>
       <Button title="Add Todo" onPress={() => addTodo("Offline task")} />
 
       <FlatList
         data={data}
-        keyExtractor={(i: any) => i.id}
-        renderItem={({ item }: any) => (
+        keyExtractor={(i) => i.id}
+        renderItem={({ item }) => (
           <Text>
-            {item.title} {item.synced ? "✅" : "⏳"}
+            {item.title} {item.synced ? "✅" : item.lastError ? "🔴" : "⏳"}
           </Text>
         )}
       />

@@ -2,7 +2,12 @@ import { uploadTodo } from "@/src/api/client";
 import { queryClient } from "@/src/store/queryClient";
 import { setSyncState } from "@/src/sync/syncState";
 import NetInfo from "@react-native-community/netinfo";
-import { getPendingTodos, incrementRetry, markSynced } from "./todo.repository";
+import {
+  getFailedTodos,
+  getPendingTodos,
+  incrementRetry,
+  markSynced,
+} from "./todo.repository";
 
 export const syncTodos = async () => {
   const net = await NetInfo.fetch();
@@ -20,11 +25,8 @@ export const syncTodos = async () => {
 
   setSyncState({ status: "syncing", pending: pending.length });
 
-  let failed = 0;
-
   for (const todo of pending) {
     if (todo.retryCount > 5) {
-      failed++;
       continue;
     }
     try {
@@ -44,11 +46,13 @@ export const syncTodos = async () => {
     }
   }
 
+  const failedTodos = await getFailedTodos();
   setSyncState({
-    status: failed > 0 ? "error" : "idle",
+    status: failedTodos.length > 0 ? "error" : "idle",
     pending: 0,
     lastSync: Date.now(),
   });
 
   queryClient.invalidateQueries({ queryKey: ["todos"] });
+  queryClient.invalidateQueries({ queryKey: ["failedTodos"] });
 };
