@@ -4,4 +4,6 @@ export type Todo = {
   completed: number;
   synced: number;
   updatedAt: number;
+  retryCount: number;
+  lastError: string | null;
 };
