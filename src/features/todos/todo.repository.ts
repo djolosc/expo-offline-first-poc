@@ -1,4 +1,4 @@
-import { db } from "@/src/db";
+import { db } from "@/src/services/storage/dbService";
 import { Todo } from "./todo.types";
 
 export const insertTodo = (todo: Todo) => {

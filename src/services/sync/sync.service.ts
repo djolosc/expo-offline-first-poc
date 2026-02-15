@@ -1,14 +1,14 @@
-import { uploadTodo } from "@/src/api/client";
-import { queryClient } from "@/src/store/queryClient";
-import { setSyncState } from "@/src/sync/syncState";
-import NetInfo from "@react-native-community/netinfo";
 import {
   getAllUnsyncedCount,
   getFailedTodos,
   getPendingTodos,
   incrementRetry,
   markSynced,
-} from "./todo.repository";
+} from "@/src/features/todos/todo.repository";
+import { uploadTodo } from "@/src/services/api/client";
+import { setSyncState } from "@/src/services/sync/syncState";
+import { queryClient } from "@/src/store/queryClient";
+import NetInfo from "@react-native-community/netinfo";
 
 let syncing = false; // engine lock
 

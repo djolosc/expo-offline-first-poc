@@ -1,10 +1,13 @@
 import FailedTodos from "@/src/features/todos/FailedTodos";
-import { removeTodos } from "@/src/features/todos/todo.service";
-import { useBackgroundSync } from "@/src/sync/useBackgroundSync";
-import { useManualSync } from "@/src/sync/useManualSync";
+import {
+  useAddTodo,
+  useClearTodos,
+  useTodos,
+} from "@/src/features/todos/todo.hooks";
+import { useBackgroundSync } from "@/src/services/sync/useBackgroundSync";
+import { useManualSync } from "@/src/services/sync/useManualSync";
+import { useSyncState } from "@/src/services/sync/useSyncState";
 import { Button, FlatList, Text, View } from "react-native";
-import { useAddTodo, useTodos } from "../src/features/todos/todo.hooks";
-import { useSyncState } from "../src/sync/useSyncState";
 
 const Home = () => {
   useBackgroundSync();
@@ -13,6 +16,7 @@ const Home = () => {
   const addTodo = useAddTodo();
   const sync = useSyncState();
   const { retry } = useManualSync();
+  const { clearTodos } = useClearTodos();
 
   const lastSyncText = sync.lastSync
     ? new Date(sync.lastSync).toLocaleTimeString()
@@ -25,7 +29,7 @@ const Home = () => {
       <Text>Last sync: {lastSyncText}</Text>
       <Button title="Add Todo" onPress={() => addTodo("Offline task")} />
       <Button title="Retry sync" onPress={retry} />
-      <Button title="Reset DB" onPress={removeTodos} />
+      <Button title="Reset DB" onPress={clearTodos} />
 
       <FlatList
         data={data}

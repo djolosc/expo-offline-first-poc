@@ -1,7 +1,6 @@
-import { queryClient } from "@/src/store/queryClient";
+import { syncTodos } from "@/src/services/sync/sync.service";
 import { uuid } from "../../utils/uuid";
 import { clearTodos, insertTodo } from "./todo.repository";
-import { syncTodos } from "./todo.sync";
 import { Todo } from "./todo.types";
 
 export const createTodo = (title: string) => {
@@ -20,6 +19,4 @@ export const createTodo = (title: string) => {
 
 export const removeTodos = () => {
   clearTodos();
-  queryClient.invalidateQueries({ queryKey: ["todos"] });
-  queryClient.invalidateQueries({ queryKey: ["failedTodos"] });
 };

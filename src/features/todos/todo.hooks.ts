@@ -1,6 +1,6 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { getFailedTodos, getTodos } from "./todo.repository";
-import { createTodo } from "./todo.service";
+import { createTodo, removeTodos } from "./todo.service";
 
 export const useTodos = () => {
   return useQuery({
@@ -23,4 +23,16 @@ export const useFailedTodos = () => {
     queryKey: ["failedTodos"],
     queryFn: getFailedTodos,
   });
+};
+
+export const useClearTodos = () => {
+  const queryClient = useQueryClient();
+
+  const clearTodos = () => {
+    removeTodos(); // call the service
+    queryClient.invalidateQueries({ queryKey: ["todos"] });
+    queryClient.invalidateQueries({ queryKey: ["failedTodos"] });
+  };
+
+  return { clearTodos };
 };
