@@ -47,3 +47,16 @@ export const getFailedTodos = async () => {
     ORDER BY retryCount DESC
   `) as Promise<Todo[]>;
 };
+
+export const getAllUnsyncedCount = () =>
+  (
+    db.getFirstSync(`
+    SELECT COUNT(*) as count
+    FROM todos
+    WHERE synced = 0
+  `) as { count: number }
+  ).count;
+
+export const clearTodos = () => {
+  db.runSync(`DELETE FROM todos`);
+};
