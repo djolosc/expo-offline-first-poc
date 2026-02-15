@@ -1,8 +1,8 @@
-import { syncTodos } from "@/src/services/sync/sync.service";
+import { syncTodosWithNotification } from "./syncTodosWithNotification";
 
 export const useManualSync = () => {
   const retry = async () => {
-    await syncTodos();
+    await syncTodosWithNotification();
   };
   return { retry };
 };

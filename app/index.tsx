@@ -4,6 +4,7 @@ import {
   useClearTodos,
   useTodos,
 } from "@/src/features/todos/todo.hooks";
+import { useSetupNotifications } from "@/src/services/notifications/useSetupNotifications";
 import { useBackgroundSync } from "@/src/services/sync/useBackgroundSync";
 import { useManualSync } from "@/src/services/sync/useManualSync";
 import { useSyncState } from "@/src/services/sync/useSyncState";
@@ -11,6 +12,7 @@ import { Button, FlatList, Text, View } from "react-native";
 
 const Home = () => {
   useBackgroundSync();
+  useSetupNotifications(); // optional, for demo purposes
 
   const { data = [] } = useTodos();
   const addTodo = useAddTodo();

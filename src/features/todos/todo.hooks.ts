@@ -1,3 +1,4 @@
+import { syncTodosWithNotification } from "@/src/services/sync/syncTodosWithNotification";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { getFailedTodos, getTodos } from "./todo.repository";
 import { createTodo, removeTodos } from "./todo.service";
@@ -15,6 +16,7 @@ export const useAddTodo = () => {
   return (title: string) => {
     createTodo(title);
     qc.invalidateQueries({ queryKey: ["todos"] });
+    syncTodosWithNotification();
   };
 };
 

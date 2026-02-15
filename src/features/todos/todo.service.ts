@@ -1,4 +1,3 @@
-import { syncTodos } from "@/src/services/sync/sync.service";
 import { uuid } from "../../utils/uuid";
 import { clearTodos, insertTodo } from "./todo.repository";
 import { Todo } from "./todo.types";
@@ -14,7 +13,6 @@ export const createTodo = (title: string) => {
     lastError: null,
   };
   insertTodo(todo);
-  syncTodos();
 };
 
 export const removeTodos = () => {
