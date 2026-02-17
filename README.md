@@ -58,8 +58,8 @@ This is a **proof-of-concept (POC)** React Native app demonstrating **offline-fi
 1. Clone the repo:
 
 ```bash
-git clone <repo-url>
-cd <repo-folder>
+git clone https://github.com/djolosc/expo-offline-first-poc.git
+cd expo-offline-first-poc
 ```
 
 2. Install dependencies:
