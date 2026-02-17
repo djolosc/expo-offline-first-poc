@@ -8,21 +8,21 @@ import { useSyncState } from "@/src/services/sync/useSyncState";
 import { FC } from "react";
 import { Button, FlatList, Text, View } from "react-native";
 import { useTodosRouter } from "../navigation/todosRouter";
+import ScreenWrapper from "@/src/shared/components/ScreenWrapper";
 
 const TodoScreen: FC = () => {
   const { data = [] } = useTodos();
   const addTodo = useAddTodo();
   const sync = useSyncState();
   const { clearTodos } = useClearTodos();
-const router = useTodosRouter()
-
+  const router = useTodosRouter();
 
   const lastSyncText = sync.lastSync
     ? new Date(sync.lastSync).toLocaleTimeString()
     : "never";
 
   return (
-    <View style={{ flex: 1, padding: 40 }}>
+    <ScreenWrapper>
       <FailedTodos />
 
       <Text>Last sync: {lastSyncText}</Text>
@@ -37,12 +37,9 @@ const router = useTodosRouter()
           </Text>
         )}
       />
-      <Button
-        title="Check Failed Todos"
-        onPress={router.goToFailedTodos}
-      />
+      <Button title="Check Failed Todos" onPress={router.goToFailedTodos} />
       <Button title="Reset DB" onPress={clearTodos} />
-    </View>
+    </ScreenWrapper>
   );
 };
 
