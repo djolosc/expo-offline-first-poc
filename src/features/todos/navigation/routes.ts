@@ -1,7 +1,7 @@
 export const TODOS = {
-    ROUTE: {
-      MAIN: "/",
-      FAILED: "/todos/failed",
-      COMPLETED: "/todos/completed",
-    },
-  } as const;
+  ROUTE: {
+    MAIN: "/todos/todo",
+    FAILED: "/todos/failed",
+    COMPLETED: "/todos/completed",
+  },
+} as const;

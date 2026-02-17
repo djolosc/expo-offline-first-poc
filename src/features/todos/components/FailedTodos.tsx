@@ -1,5 +1,5 @@
 import { Text, View } from "react-native";
-import { useFailedTodos } from "./todo.hooks";
+import { useFailedTodos } from "../todo.hooks";
 
 const FailedTodos = () => {
   const { data, isLoading } = useFailedTodos();

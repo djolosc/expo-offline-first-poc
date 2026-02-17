@@ -1,1 +1,1 @@
-export { default } from "@/src/features/todos/screens/TodoScreen";
+export { default } from "@/src/features/home/screens/HomeScreen";

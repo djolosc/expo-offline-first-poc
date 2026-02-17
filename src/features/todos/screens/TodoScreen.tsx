@@ -1,4 +1,4 @@
-import FailedTodos from "@/src/features/todos/FailedTodos";
+import FailedTodos from "@/src/features/todos/components/FailedTodos";
 import {
   useAddTodo,
   useClearTodos,

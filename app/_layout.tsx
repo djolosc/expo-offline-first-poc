@@ -4,7 +4,11 @@ import { AppRoot } from "@/src/AppRoot";
 export default function Layout() {
   return (
     <AppRoot>
-      <Stack></Stack>
+      <Stack
+        screenOptions={{
+          contentStyle: { backgroundColor: "#fff" }, // global background
+        }}
+      />
     </AppRoot>
   );
 }
