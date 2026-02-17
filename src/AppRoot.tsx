@@ -4,8 +4,7 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "./store/queryClient";
 import { useSetupNotifications } from "@/src/services/notifications/useSetupNotifications";
 import { useBackgroundSync } from "@/src/services/sync/useBackgroundSync";
-import { ActivityIndicator } from "react-native/Libraries/Components/ActivityIndicator/ActivityIndicator";
-import { View } from "react-native/Libraries/Components/View/View";
+import { View, ActivityIndicator } from "react-native";
 import { useEffect, useState } from "react";
 
 export const AppRoot = ({ children }: { children: React.ReactNode }) => {

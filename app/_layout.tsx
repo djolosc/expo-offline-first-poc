@@ -4,7 +4,7 @@ import { AppRoot } from "@/src/AppRoot";
 export default function Layout() {
   return (
     <AppRoot>
-      <Stack />
+      <Stack></Stack>
     </AppRoot>
   );
 }

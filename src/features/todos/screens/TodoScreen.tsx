@@ -4,16 +4,18 @@ import {
   useClearTodos,
   useTodos,
 } from "@/src/features/todos/todo.hooks";
-import { useManualSync } from "@/src/services/sync/useManualSync";
 import { useSyncState } from "@/src/services/sync/useSyncState";
+import { FC } from "react";
 import { Button, FlatList, Text, View } from "react-native";
+import { useTodosRouter } from "../navigation/todosRouter";
 
-const TodoScreen = () => {
+const TodoScreen: FC = () => {
   const { data = [] } = useTodos();
   const addTodo = useAddTodo();
   const sync = useSyncState();
-  const { retry } = useManualSync();
   const { clearTodos } = useClearTodos();
+const router = useTodosRouter()
+
 
   const lastSyncText = sync.lastSync
     ? new Date(sync.lastSync).toLocaleTimeString()
@@ -25,8 +27,6 @@ const TodoScreen = () => {
 
       <Text>Last sync: {lastSyncText}</Text>
       <Button title="Add Todo" onPress={() => addTodo("Offline task")} />
-      <Button title="Retry sync" onPress={retry} />
-      <Button title="Reset DB" onPress={clearTodos} />
 
       <FlatList
         data={data}
@@ -37,6 +37,11 @@ const TodoScreen = () => {
           </Text>
         )}
       />
+      <Button
+        title="Check Failed Todos"
+        onPress={router.goToFailedTodos}
+      />
+      <Button title="Reset DB" onPress={clearTodos} />
     </View>
   );
 };
