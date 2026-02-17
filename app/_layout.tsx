@@ -6,7 +6,8 @@ export default function Layout() {
     <AppRoot>
       <Stack
         screenOptions={{
-          contentStyle: { backgroundColor: "#fff" }, // global background
+          contentStyle: { backgroundColor: "#fff" },
+          headerShown: false,
         }}
       />
     </AppRoot>
