@@ -1,65 +1,94 @@
-# Welcome to your Expo app 👋
+# 🛠️ Notifications & Offline-First POC (React Native / Expo)
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+This is a **proof-of-concept (POC)** React Native app demonstrating **offline-first architecture** and **push/local notifications** using Expo.
 
-## Get started
+> **Note:** Styling and visual polish were **not the focus** — the goal was to experiment with offline handling, data caching, and notifications.  
+> **Also:** There is **no real API connection** — all data is mocked and stored locally using **Expo SQLite**.
 
-To start the app, in your terminal run:
+---
+
+## 📁 Features
+
+- **Offline-First Functionality**
+  - Data persists locally using **Expo SQLite**
+  - Works even when the device is offline
+  - Caching strategies reduce unnecessary network calls
+  - **All data is mocked**; no real API requests
+
+- **Notifications**
+  - Basic handling of **push and local notifications**
+  - Demonstrates scheduling and reacting to notifications
+
+- **Feature-Based Architecture**
+  - Each feature (e.g., Todos) is **self-contained**
+  - Screens, hooks, and navigation logic live under `src/features/<feature>`
+
+- **Typed Routes & Navigation**
+  - Navigation uses **typed constants**
+  - Feature-specific router hooks (e.g., `useTodosRouter`)
+
+- **Screen Wrapper**
+  - Handles **SafeAreaView** for all devices
+  - Supports scrollable/non-scrollable screens with consistent padding
+
+- **Offline-Ready Data Layer**
+  - Uses **React Query** with caching
+  - Can prefetch data when starting a feature
+  - Local database powered by **Expo SQLite**
+
+---
+
+> All screens are wrapped with a **ScreenWrapper** for safe area and consistent layout.
+
+---
+
+## ⚡ Tech Stack
+
+- **React Native + Expo**
+- **Expo Router** (file-based routing)
+- **Expo SQLite** for offline storage
+- **React Query** (offline-first caching)
+- **TypeScript**
+- **SafeAreaView wrapper** for consistent layout
+
+---
+
+## 🚀 Getting Started
+
+1. Clone the repo:
 
 ```bash
-npm run start
+git clone <repo-url>
+cd <repo-folder>
 ```
 
-In the output, you'll find options to open the app in:
-
-- [a development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [an Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [an iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Workflows
-
-This project is configured to use [EAS Workflows](https://docs.expo.dev/eas/workflows/get-started/) to automate some development and release processes. These commands are set up in [`package.json`](./package.json) and can be run using NPM scripts in your terminal.
-
-### Previews
-
-Run `npm run draft` to [publish a preview update](https://docs.expo.dev/eas/workflows/examples/publish-preview-update/) of your project, which can be viewed in Expo Go or in a development build.
-
-### Development Builds
-
-Run `npm run development-builds` to [create a development build](https://docs.expo.dev/eas/workflows/examples/create-development-builds/). Note - you'll need to follow the [Prerequisites](https://docs.expo.dev/eas/workflows/examples/create-development-builds/#prerequisites) to ensure you have the correct emulator setup on your machine.
-
-### Production Deployments
-
-Run `npm run deploy` to [deploy to production](https://docs.expo.dev/eas/workflows/examples/deploy-to-production/). Note - you'll need to follow the [Prerequisites](https://docs.expo.dev/eas/workflows/examples/deploy-to-production/#prerequisites) to ensure you're set up to submit to the Apple and Google stores.
-
-## Hosting
-
-Expo offers hosting for websites and API functions via EAS Hosting. See the [Getting Started](https://docs.expo.dev/eas/hosting/get-started/) guide to learn more.
-
-
-## Get a fresh project
-
-When you're ready, run:
+2. Install dependencies:
 
 ```bash
-npm run reset-project
+npm install
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+3.Run the app:
 
-## Learn more
+```bash
+npx expo start
+```
 
-To learn more about developing your project with Expo, look at the following resources:
+---
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+## 📌 Notes
 
-## Join the community
+- Styling was minimal; focus is on functionality
+- Features are modular and reusable
+- Navigation is typed and uses feature-specific hooks
+- All data is mocked and stored locally using Expo SQLite — no real API integration
+- Notifications are included as a POC, not production-ready
 
-Join our community of developers creating universal apps.
+---
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+## 💡 Future Improvements
+
+- Add full styling/themes
+- Extend offline-first with more complex database logic
+- Integrate push notifications with backend service
+- Add unit and integration tests
