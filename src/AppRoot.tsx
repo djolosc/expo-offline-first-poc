@@ -6,6 +6,7 @@ import { useSetupNotifications } from "@/src/services/notifications/useSetupNoti
 import { useBackgroundSync } from "@/src/services/sync/useBackgroundSync";
 import { View, ActivityIndicator } from "react-native";
 import { useEffect, useState } from "react";
+import { AuthProvider } from "@/src/services/auth/AuthContext";
 
 export const AppRoot = ({ children }: { children: React.ReactNode }) => {
   const [ready, setReady] = useState(false);
@@ -32,6 +33,8 @@ export const AppRoot = ({ children }: { children: React.ReactNode }) => {
   }
 
   return (
-    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+    <AuthProvider>
+      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+    </AuthProvider>
   );
 };
