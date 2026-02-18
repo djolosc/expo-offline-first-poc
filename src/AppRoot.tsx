@@ -4,34 +4,37 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "./store/queryClient";
 import { useSetupNotifications } from "@/src/services/notifications/useSetupNotifications";
 import { useBackgroundSync } from "@/src/services/sync/useBackgroundSync";
-import { View, ActivityIndicator } from "react-native";
-import { useEffect, useState } from "react";
+import { FC, useEffect } from "react";
+import { View } from "react-native";
+import { AuthProvider, useAuth } from "@/src/services/auth/AuthContext";
 
-export const AppRoot = ({ children }: { children: React.ReactNode }) => {
-  const [ready, setReady] = useState(false);
+const AppContent: FC<{ children: React.ReactNode }> = ({ children }) => {
+  const { isLoggedIn } = useAuth();
 
   useSetupNotifications();
-  useBackgroundSync();
+  useBackgroundSync(isLoggedIn);
 
   useEffect(() => {
     const bootstrap = async () => {
+      if (!isLoggedIn) return;
       await initDB(); // ensure DB ready
       startNetworkListener(); // start once
-      setReady(true);
     };
 
     bootstrap();
   }, []);
 
-  if (!ready) {
-    return (
-      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <ActivityIndicator />
-      </View>
-    );
-  }
+  return <>{children}</>;
+};
 
+export const AppRoot = ({ children }: { children: React.ReactNode }) => {
   return (
-    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+    <AuthProvider>
+      <AppContent>
+        <QueryClientProvider client={queryClient}>
+          {children}
+        </QueryClientProvider>
+      </AppContent>
+    </AuthProvider>
   );
 };

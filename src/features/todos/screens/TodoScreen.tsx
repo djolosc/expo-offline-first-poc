@@ -9,6 +9,7 @@ import { FC } from "react";
 import { Button, FlatList, Text, View } from "react-native";
 import { useTodosRouter } from "../navigation/todosRouter";
 import ScreenWrapper from "@/src/shared/components/ScreenWrapper";
+import { useAuth } from "@/src/services/auth/AuthContext";
 
 const TodoScreen: FC = () => {
   const { data = [] } = useTodos();
@@ -16,6 +17,7 @@ const TodoScreen: FC = () => {
   const sync = useSyncState();
   const { clearTodos } = useClearTodos();
   const router = useTodosRouter();
+  const { logout } = useAuth();
 
   const lastSyncText = sync.lastSync
     ? new Date(sync.lastSync).toLocaleTimeString()
@@ -39,6 +41,7 @@ const TodoScreen: FC = () => {
       />
       <Button title="Check Failed Todos" onPress={router.goToFailedTodos} />
       <Button title="Reset DB" onPress={clearTodos} />
+      <Button title="Logout" onPress={logout} />
     </ScreenWrapper>
   );
 };
