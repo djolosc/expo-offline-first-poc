@@ -4,7 +4,6 @@ import { PublicGate } from "@/src/services/auth/PublicGate";
 
 export default function Layout() {
   return (
-    // <AppRoot>
     <PublicGate>
       <Stack
         screenOptions={{
@@ -13,6 +12,5 @@ export default function Layout() {
         }}
       />
     </PublicGate>
-    // </AppRoot>
   );
 }

@@ -5,7 +5,6 @@ import { queryClient } from "./store/queryClient";
 import { useSetupNotifications } from "@/src/services/notifications/useSetupNotifications";
 import { useBackgroundSync } from "@/src/services/sync/useBackgroundSync";
 import { FC, useEffect } from "react";
-import { View } from "react-native";
 import { AuthProvider, useAuth } from "@/src/services/auth/AuthContext";
 
 const AppContent: FC<{ children: React.ReactNode }> = ({ children }) => {
