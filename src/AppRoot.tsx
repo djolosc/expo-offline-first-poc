@@ -6,6 +6,7 @@ import { useSetupNotifications } from "@/src/services/notifications/useSetupNoti
 import { useBackgroundSync } from "@/src/services/sync/useBackgroundSync";
 import { FC, useEffect, useRef } from "react";
 import { AuthProvider, useAuth } from "@/src/services/auth/AuthContext";
+import { syncAll } from "./services/sync/syncOrchestrator";
 
 const AppContent: FC<{ children: React.ReactNode }> = ({ children }) => {
   const hasStarted = useRef(false);
@@ -19,12 +20,17 @@ const AppContent: FC<{ children: React.ReactNode }> = ({ children }) => {
 
     hasStarted.current = true;
 
+    let unsubscribe: (() => void) | undefined;
+
     const bootstrap = async () => {
       await initDB();
-      startNetworkListener();
+      unsubscribe = startNetworkListener(syncAll);
     };
 
     bootstrap();
+    return () => {
+      unsubscribe?.();
+    };
   }, [isLoggedIn]);
   return <>{children}</>;
 };
