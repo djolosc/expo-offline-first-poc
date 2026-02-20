@@ -14,7 +14,5 @@ export const PublicGate = ({ children }: { children: ReactNode }) => {
     }
   }, [isLoggedIn, router]);
 
-  if (isLoggedIn) return null; // optionally show a loader
-
   return <>{children}</>;
 };
